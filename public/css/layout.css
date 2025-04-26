@@ -1,0 +1,276 @@
+/* Header Styles */
+.site-header {
+    background-color: var(--background-color);
+    box-shadow: var(--box-shadow);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  
+  .logo span {
+    color: var(--accent-color);
+  }
+  
+  .main-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .main-nav li {
+    margin-right: 20px;
+  }
+  
+  .main-nav a {
+    font-weight: 600;
+  }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown-toggle::after {
+    content: '▼';
+    font-size: 0.7rem;
+    margin-left: 5px;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--background-color);
+    box-shadow: var(--box-shadow);
+    border-radius: 4px;
+    min-width: 180px;
+    display: none;
+    z-index: 10;
+  }
+  
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .dropdown-menu a:last-child {
+    border-bottom: none;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .search-box {
+    margin-right: 20px;
+  }
+  
+  .search-box form {
+    display: flex;
+  }
+  
+  .search-box input {
+    width: 200px;
+    padding: 8px 12px;
+    border-radius: 4px 0 0 4px;
+    border: 1px solid var(--border-color);
+  }
+  
+  .search-box button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+  }
+  
+  .user-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart-icon {
+    position: relative;
+    margin-right: 20px;
+    font-size: 1.2rem;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .auth-buttons .btn {
+    margin-left: 10px;
+  }
+  
+  /* Mobile Menu */
+  .mobile-menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* Footer Styles */
+  .site-footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 60px 0 20px;
+    margin-top: 60px;
+    width: 100%;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  
+  .footer-logo h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .footer-logo span {
+    color: #aaa;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 60%;
+  }
+  
+  .footer-section {
+    margin-bottom: 20px;
+    min-width: 160px;
+  }
+  
+  .footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #fff;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-section a {
+    color: #ccc;
+  }
+  
+  .footer-section a:hover {
+    color: white;
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .payment-methods {
+    display: flex;
+    align-items: center;
+  }
+  
+  .payment-methods span {
+    margin-right: 10px;
+  }
+  
+  .payment-methods i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    color: #ccc;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #ccc;
+  }
+  
+  .hero-buttons .btn {
+    margin: 0 10px 10px;
+    display: inline-block;
+  }
+  
+  /* Section Styles */
+  .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    position: relative;
+    padding-bottom: 15px;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+  }

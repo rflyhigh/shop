@@ -1,0 +1,71 @@
+<!-- views/partials/header.ejs -->
+<header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="/">
+            <h1>Keykardz<span>.shop</span></h1>
+          </a>
+        </div>
+        
+        <div class="mobile-menu-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        
+        <nav class="main-nav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle">Categories</a>
+              <div class="dropdown-menu">
+                <a href="/products?category=giftcard">Gift Cards</a>
+                <a href="/products?category=account">Accounts</a>
+                <a href="/products?category=currency">Digital Currency</a>
+                <a href="/products?category=other">Other</a>
+              </div>
+            </li>
+            <% if (locals.user && user.isAdmin) { %>
+              <li><a href="/admin">Admin Panel</a></li>
+            <% } %>
+          </ul>
+        </nav>
+        
+        <div class="header-actions">
+          <div class="search-box">
+            <form action="/products" method="GET">
+              <input type="text" name="search" placeholder="Search products...">
+              <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+          
+          <div class="user-actions">
+            <a href="/cart" class="cart-icon">
+              <i class="fas fa-shopping-cart"></i>
+              <% if (locals.cartCount && cartCount > 0) { %>
+                <span class="cart-count"><%= cartCount %></span>
+              <% } %>
+            </a>
+            
+            <% if (locals.user) { %>
+              <div class="dropdown">
+                <a href="#" class="dropdown-toggle">
+                  <i class="fas fa-user"></i> <%= user.name %>
+                </a>
+                <div class="dropdown-menu">
+                  <a href="/profile">Profile</a>
+                  <a href="/orders">Orders</a>
+                  <a href="/auth/logout">Logout</a>
+                </div>
+              </div>
+            <% } else { %>
+              <div class="auth-buttons">
+                <a href="/auth/login" class="btn btn-outline">Login</a>
+                <a href="/auth/register" class="btn btn-primary">Register</a>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>

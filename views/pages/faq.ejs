@@ -1,0 +1,99 @@
+<!-- views/pages/faq.ejs -->
+<section class="page-content">
+  <div class="container">
+    <div class="page-header">
+      <h1>Frequently Asked Questions</h1>
+    </div>
+    
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>How do I receive my digital products after purchase?</h3>
+          <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-answer">
+          <p>After completing your purchase, your digital products (gift card codes, account credentials, etc.) will be delivered instantly to your email address. You can also view them in your order history if you have an account with us.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>What payment methods do you accept?</h3>
+          <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-answer">
+          <p>We accept various cryptocurrencies including Bitcoin, Ethereum, and Litecoin. Payment is processed securely through NOWPayments.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Are the gift cards and accounts legitimate?</h3>
+          <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, all products sold on Keykardz are 100% legitimate. We source our products directly from authorized retailers and verified partners to ensure authenticity and validity.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>What if the code or account doesn't work?</h3>
+          <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-answer">
+          <p>In the rare event that you encounter an issue with your purchase, please contact our support team immediately. We offer a 24-hour guarantee on all products and will resolve any issues promptly.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Can I purchase products without creating an account?</h3>
+          <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, we offer guest checkout. However, creating an account allows you to track your order history and makes future purchases faster.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Do you offer refunds?</h3>
+          <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-answer">
+          <p>Due to the digital nature of our products, we generally do not offer refunds once the codes or account details have been delivered. However, if you encounter any issues with your purchase, please contact our support team, and we'll work to resolve the problem.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>How do I contact customer support?</h3>
+          <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-answer">
+          <p>You can reach our customer support team through our <a href="/contact">Contact page</a> or by emailing support@keykardz.shop. We aim to respond to all inquiries within 24 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Toggle FAQ answers
+  document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+      const faqItem = question.parentElement;
+      faqItem.classList.toggle('active');
+      
+      const icon = question.querySelector('.faq-toggle i');
+      if (faqItem.classList.contains('active')) {
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+      } else {
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,127 @@
+<!-- views/home.ejs -->
+<section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Digital Products Marketplace</h1>
+        <p>Find the best gift cards, accounts, and digital currencies at competitive prices.</p>
+        <div class="hero-buttons">
+          <a href="/products" class="btn btn-primary">Shop Now</a>
+          <a href="/products?category=giftcard" class="btn btn-outline">Browse Gift Cards</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="featured-products">
+    <div class="container">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="product-grid">
+        <% featuredProducts.forEach(product => { %>
+          <div class="product-card">
+            <div class="product-image">
+              <img src="<%= product.imageUrl %>" alt="<%= product.name %>">
+              <% if (product.stock < 5 && product.stock > 0) { %>
+                <span class="product-badge low-stock">Only <%= product.stock %> left!</span>
+              <% } else if (product.stock === 0) { %>
+                <span class="product-badge out-of-stock">Out of Stock</span>
+              <% } %>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title"><%= product.name %></h3>
+              <p class="product-price">$<%= product.price.toFixed(2) %></p>
+              <div class="product-actions">
+                <a href="/products/<%= product._id %>" class="btn btn-outline btn-sm">View Details</a>
+                <% if (product.stock > 0) { %>
+                  <form action="/cart/add" method="POST">
+                    <input type="hidden" name="productId" value="<%= product._id %>">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
+                  </form>
+                <% } else { %>
+                  <button class="btn btn-disabled btn-sm" disabled>Out of Stock</button>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+  
+  <section class="categories">
+    <div class="container">
+      <h2 class="section-title">Shop by Category</h2>
+      <div class="category-grid">
+        <a href="/products?category=giftcard" class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-gift"></i>
+          </div>
+          <h3>Gift Cards</h3>
+          <p>Steam, Amazon, Netflix, and more</p>
+        </a>
+        
+        <a href="/products?category=account" class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-gamepad"></i>
+          </div>
+          <h3>Accounts</h3>
+          <p>Premium accounts </p>
+        </a>
+        
+        <a href="/products?category=currency" class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-coins"></i>
+          </div>
+          <h3>Digital Currency</h3>
+          <p>Crypto, in-game currency, and more</p>
+        </a>
+        
+        <a href="/products?category=other" class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+          <h3>Other</h3>
+          <p>Software, subscriptions, and more</p>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <section class="why-choose-us">
+    <div class="container">
+      <h2 class="section-title">Why Choose Keykardz?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Secure Payments</h3>
+          <p>Pay securely with cryptocurrency and other payment methods.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Instant Delivery</h3>
+          <p>Get your digital products delivered instantly after payment.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-tag"></i>
+          </div>
+          <h3>Best Prices</h3>
+          <p>We offer competitive prices on all our digital products.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3>24/7 Support</h3>
+          <p>Our customer support team is always ready to help.</p>
+        </div>
+      </div>
+    </div>
+  </section>
