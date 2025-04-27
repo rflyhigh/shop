@@ -68,7 +68,9 @@
               <div class="order-total">
                 <p>Total: <strong>$<%= order.totalAmount.toFixed(2) %></strong></p>
               </div>
-              <a href="/orders/<%= order._id %>" class="btn btn-outline">View Details</a>
+              <a href="/orders/<%= order._id %>" class="btn btn-outline">
+                <i class="fas fa-eye"></i> View Details
+              </a>
             </div>
           </div>
         <% }); %>
@@ -76,18 +78,3 @@
     <% } %>
   </div>
 </section>
-
-<style>
-  .missing-product {
-    width: 80px;
-    height: 80px;
-    background-color: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--accent-color);
-    border-radius: 4px;
-  }
-</style>

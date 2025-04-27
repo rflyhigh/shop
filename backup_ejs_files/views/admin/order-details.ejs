@@ -1,0 +1,162 @@
+
+<!-- views/admin/order-details.ejs -->
+<section class="admin-section">
+  <div class="container">
+    <div class="admin-header">
+      <h1>Order Details</h1>
+      <a href="/admin/orders" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> Back to Orders
+      </a>
+    </div>
+    
+    <div class="order-details-container">
+      <div class="order-info-card">
+        <div class="order-header">
+          <div>
+            <h2>Order #<%= order._id.toString().substring(0, 8) %>...</h2>
+            <p class="order-date">Placed on <%= new Date(order.createdAt).toLocaleString() %></p>
+          </div>
+          <div class="order-status">
+            <span class="status-badge <%= order.status %>">
+              <%= order.status.charAt(0).toUpperCase() + order.status.slice(1) %>
+            </span>
+          </div>
+        </div>
+        
+        <div class="order-details-grid">
+          <div class="order-section">
+            <h3>Customer Information</h3>
+            <% if (order.user) { %>
+              <p><strong>Name:</strong> <%= order.user.name %></p>
+              <p><strong>Email:</strong> <%= order.user.email %></p>
+              <p><strong>Account Type:</strong> Registered User</p>
+            <% } else { %>
+              <p><strong>Email:</strong> <%= order.guestEmail %></p>
+              <p><strong>Account Type:</strong> Guest</p>
+            <% } %>
+          </div>
+          
+          <div class="order-section">
+            <h3>Payment Information</h3>
+            <p><strong>Payment ID:</strong> <%= order.paymentId %></p>
+            <p><strong>Total Amount:</strong> $<%= order.totalAmount.toFixed(2) %></p>
+            <p><strong>Payment Method:</strong> Cryptocurrency (NOWPayments)</p>
+          </div>
+        </div>
+        
+        <div class="order-section">
+          <h3>Order Items</h3>
+          <div class="items-table-container">
+            <table class="items-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% order.products.forEach(item => { %>
+                  <tr>
+                    <td class="product-cell">
+                      <div class="product-info">
+                        <% if (item.product) { %>
+                          <img src="<%= item.product.imageUrl %>" alt="<%= item.product.name %>">
+                          <div>
+                            <h4 class="truncate-2"><%= item.product.name %></h4>
+                            <p class="product-category">
+                              <% if (item.product.category === 'giftcard') { %>
+                                Gift Card
+                              <% } else if (item.product.category === 'account') { %>
+                                Account
+                              <% } else if (item.product.category === 'currency') { %>
+                                Digital Currency
+                              <% } else { %>
+                                Other
+                              <% } %>
+                            </p>
+                          </div>
+                        <% } else { %>
+                          <div class="missing-product">Product Unavailable</div>
+                          <div>
+                            <h4>Product No Longer Available</h4>
+                          </div>
+                        <% } %>
+                      </div>
+                    </td>
+                    <td>$<%= item.price.toFixed(2) %></td>
+                    <td><%= item.quantity %></td>
+                    <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+                  </tr>
+                <% }); %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" class="total-label">Total</td>
+                  <td class="total-value">$<%= order.totalAmount.toFixed(2) %></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        
+        <% if (order.products.some(item => item.codes && item.codes.length > 0 || item.accounts && item.accounts.length > 0)) { %>
+          <div class="order-section">
+            <h3>Digital Items</h3>
+            <div class="digital-items">
+              <% order.products.forEach(item => { %>
+                <% if (item.codes && item.codes.length > 0) { %>
+                  <div class="digital-item">
+                    <h4><%= item.product ? item.product.name : 'Product' %> - Gift Card Codes</h4>
+                    <div class="code-list">
+                      <% item.codes.forEach(code => { %>
+                        <div class="code-item">
+                          <code><%= code %></code>
+                        </div>
+                      <% }); %>
+                    </div>
+                  </div>
+                <% } %>
+                
+                <% if (item.accounts && item.accounts.length > 0) { %>
+                  <div class="digital-item">
+                    <h4><%= item.product ? item.product.name : 'Product' %> - Account Details</h4>
+                    <div class="account-list">
+                      <% item.accounts.forEach(account => { %>
+                        <div class="account-item">
+                          <p><strong>Username:</strong> <%= account.username %></p>
+                          <p><strong>Password:</strong> <%= account.password %></p>
+                        </div>
+                      <% }); %>
+                    </div>
+                  </div>
+                <% } %>
+              <% }); %>
+            </div>
+          </div>
+        <% } %>
+        
+        <% if (order.status === 'pending') { %>
+          <div class="order-actions">
+            <h3>Update Order Status</h3>
+            <form action="/admin/orders/<%= order._id %>/status?_method=PUT" method="POST" class="status-form">
+              <div class="form-group">
+                <select name="status" id="status" required>
+                  <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                  <option value="completed" <%= order.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                  <option value="failed" <%= order.status === 'failed' ? 'selected' : '' %>>Failed</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check-circle"></i> Update Status
+              </button>
+            </form>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+

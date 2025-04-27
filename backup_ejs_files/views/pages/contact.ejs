@@ -1,0 +1,101 @@
+
+<!-- views/pages/contact.ejs -->
+<section class="page-content">
+  <div class="container">
+    <div class="page-header">
+      <h1>Contact Us</h1>
+    </div>
+    
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>Email Us</h3>
+          <p>For general inquiries and support:</p>
+          <p><a href="mailto:support@keykardz.shop">support@keykardz.shop</a></p>
+          <p>For business partnerships:</p>
+          <p><a href="mailto:business@keykardz.shop">business@keykardz.shop</a></p>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Support Hours</h3>
+          <p>Our customer support team is available:</p>
+          <p>Monday - Friday: 9AM - 9PM EST</p>
+          <p>Saturday - Sunday: 10AM - 6PM EST</p>
+          <p>We aim to respond to all inquiries within 24 hours.</p>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-question-circle"></i>
+          </div>
+          <h3>FAQs</h3>
+          <p>Before contacting us, you might find your answer in our <a href="/faq">Frequently Asked Questions</a>.</p>
+        </div>
+      </div>
+      
+      <div class="contact-form-container">
+        <h2>Send Us a Message</h2>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject" required>
+              <option value="">Select a subject</option>
+              <option value="support">Product Support</option>
+              <option value="order">Order Inquiry</option>
+              <option value="payment">Payment Issue</option>
+              <option value="partnership">Business Partnership</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-lg">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+        
+        <div class="form-success" style="display: none;">
+          <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h3>Message Sent!</h3>
+          <p>Thank you for contacting us. We'll get back to you as soon as possible.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+  // Simple form submission handling
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    this.style.display = 'none';
+    document.querySelector('.form-success').style.display = 'block';
+  });
+</script>
+
+

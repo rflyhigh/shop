@@ -1,0 +1,131 @@
+
+
+<!-- views/admin/orders.ejs -->
+<section class="admin-section">
+  <div class="container">
+    <div class="admin-header">
+      <h1>Order Management</h1>
+    </div>
+    
+    <div class="admin-filters">
+      <div class="filter-group">
+        <label for="status-filter">Filter by Status:</label>
+        <select id="status-filter" class="filter-select">
+          <option value="all">All Orders</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+          <option value="failed">Failed</option>
+        </select>
+      </div>
+      
+      <div class="search-box">
+        <input type="text" id="order-search" placeholder="Search by ID or email...">
+        <button type="button" id="search-btn"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+    
+    <div class="admin-table-container">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (orders.length === 0) { %>
+            <tr>
+              <td colspan="7" class="no-data">No orders found</td>
+            </tr>
+          <% } else { %>
+            <% orders.forEach(order => { %>
+              <tr class="order-row <%= order.status %>">
+                <td><%= order._id.toString().substring(0, 8) %>...</td>
+                <td>
+                  <% if (order.user) { %>
+                    <strong><%= order.user.name %></strong><br>
+                    <span class="email text-muted"><%= order.user.email %></span>
+                  <% } else { %>
+                    <strong>Guest</strong><br>
+                    <span class="email text-muted"><%= order.guestEmail %></span>
+                  <% } %>
+                </td>
+                <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
+                <td>
+                  <% let itemCount = 0; %>
+                  <% order.products.forEach(item => { itemCount += item.quantity; }); %>
+                  <%= itemCount %> item<%= itemCount !== 1 ? 's' : '' %>
+                </td>
+                <td>$<%= order.totalAmount.toFixed(2) %></td>
+                <td>
+                  <span class="status-badge <%= order.status %>">
+                    <%= order.status.charAt(0).toUpperCase() + order.status.slice(1) %>
+                  </span>
+                </td>
+                <td class="actions-cell">
+                  <a href="/admin/orders/<%= order._id %>" class="btn btn-sm btn-outline">
+                    <i class="fas fa-eye"></i> View
+                  </a>
+                </td>
+              </tr>
+            <% }); %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+  // Filter orders by status
+  document.getElementById('status-filter').addEventListener('change', function() {
+    const status = this.value;
+    const rows = document.querySelectorAll('.order-row');
+    
+    rows.forEach(row => {
+      if (status === 'all') {
+        row.style.display = '';
+      } else {
+        if (row.classList.contains(status)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      }
+    });
+  });
+  
+  // Search orders
+  document.getElementById('search-btn').addEventListener('click', searchOrders);
+  document.getElementById('order-search').addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') {
+      searchOrders();
+    }
+  });
+  
+  function searchOrders() {
+    const searchTerm = document.getElementById('order-search').value.toLowerCase();
+    const rows = document.querySelectorAll('.order-row');
+    
+    rows.forEach(row => {
+      const orderId = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+      const email = row.querySelector('.email').textContent.toLowerCase();
+      
+      if (orderId.includes(searchTerm) || email.includes(searchTerm)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+
+

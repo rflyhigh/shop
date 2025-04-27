@@ -1,0 +1,91 @@
+
+<!-- views/payment/checkout.ejs -->
+<section class="checkout-page">
+  <div class="container">
+    <div class="page-header">
+      <h1>Checkout</h1>
+    </div>
+    
+    <div class="checkout-content">
+      <div class="checkout-form">
+        <h2>Contact Information</h2>
+        <form action="/payment/create" method="POST">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" value="<%= email %>" required>
+            <p class="form-hint">Your digital items will be sent to this email address.</p>
+          </div>
+          
+          <h2>Payment Method</h2>
+          <div class="payment-options">
+            <p>We use NOWPayments for secure cryptocurrency payments. You'll be redirected to complete your payment.</p>
+            <div class="crypto-options">
+              <div class="crypto-option">
+                <i class="fab fa-bitcoin"></i>
+                <span>Bitcoin</span>
+              </div>
+              <div class="crypto-option">
+                <i class="fab fa-ethereum"></i>
+                <span>Ethereum</span>
+              </div>
+              <div class="crypto-option">
+                <i class="fab fa-litecoin-ltc"></i>
+                <span>Litecoin</span>
+              </div>
+              <div class="crypto-option">
+                <i class="fas fa-coins"></i>
+                <span>Other Crypto</span>
+              </div>
+            </div>
+          </div>
+          
+          <h2>Order Summary</h2>
+          <div class="order-summary">
+            <div class="summary-items">
+              <% cart.items.forEach(item => { %>
+                <div class="summary-item">
+                  <div class="item-info">
+                    <img src="<%= item.product.imageUrl %>" alt="<%= item.product.name %>">
+                    <div>
+                      <h3 class="truncate-2"><%= item.product.name %></h3>
+                      <p>Qty: <%= item.quantity %></p>
+                    </div>
+                  </div>
+                  <div class="item-price">
+                    $<%= (item.product.price * item.quantity).toFixed(2) %>
+                  </div>
+                </div>
+              <% }); %>
+            </div>
+            
+            <div class="summary-totals">
+              <div class="summary-row">
+                <span>Subtotal:</span>
+                <span>$<%= total.toFixed(2) %></span>
+              </div>
+              <div class="summary-row">
+                <span>Shipping:</span>
+                <span>Free</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total:</span>
+                <span>$<%= total.toFixed(2) %></span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="checkout-actions">
+            <a href="/cart" class="btn btn-outline">
+              <i class="fas fa-arrow-left"></i> Back to Cart
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-credit-card"></i> Complete Purchase
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+

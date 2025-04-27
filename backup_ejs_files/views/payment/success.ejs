@@ -1,0 +1,30 @@
+
+
+
+<!-- views/payment/success.ejs -->
+<section class="success-page">
+  <div class="container">
+    <div class="success-content">
+      <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      
+      <h1>Payment Successful!</h1>
+      <p>Thank you for your purchase. Your digital items have been sent to your email address.</p>
+      
+      <div class="success-actions">
+        <% if (locals.user) { %>
+          <a href="/orders" class="btn btn-primary">
+            <i class="fas fa-shopping-bag"></i> View Your Orders
+          </a>
+        <% } %>
+        <a href="/products" class="btn btn-outline">
+          <i class="fas fa-shopping-basket"></i> Continue Shopping
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+

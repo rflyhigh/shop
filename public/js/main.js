@@ -30,8 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Quantity control functionality
   function initQuantityControls() {
-    const minusButtons = document.querySelectorAll('.qty-btn.minus');
-    const plusButtons = document.querySelectorAll('.qty-btn.plus');
+    // For all minus buttons (both in product details and cart)
+    const minusButtons = document.querySelectorAll('.qty-btn.minus, .cart-qty-btn.minus');
+    const plusButtons = document.querySelectorAll('.qty-btn.plus, .cart-qty-btn.plus');
     
     minusButtons.forEach(button => {
       button.addEventListener('click', function() {
@@ -80,47 +81,45 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mobile menu functionality
   function initMobileMenu() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileOverlay = document.querySelector('.mobile-overlay');
     
-    if (mobileMenuToggle && mainNav) {
+    if (mobileMenuToggle) {
       mobileMenuToggle.addEventListener('click', function() {
-        mainNav.classList.toggle('active');
-        this.innerHTML = mainNav.classList.contains('active') 
-          ? '<i class="fas fa-times"></i>' 
-          : '<i class="fas fa-bars"></i>';
+        document.body.classList.toggle('mobile-nav-active');
+        mobileNav.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
       });
       
-      // Close mobile menu when clicking outside
-      document.addEventListener('click', function(event) {
-        if (!event.target.closest('.main-nav') && 
-            !event.target.closest('.mobile-menu-toggle') && 
-            mainNav.classList.contains('active')) {
-          mainNav.classList.remove('active');
-          mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        }
+      // Close mobile menu when clicking on overlay
+      if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', function() {
+          document.body.classList.remove('mobile-nav-active');
+          mobileNav.classList.remove('active');
+          mobileOverlay.classList.remove('active');
+        });
+      }
+      
+      // Mobile dropdown toggles
+      const mobileDropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+      mobileDropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+          const parent = this.closest('.mobile-nav-item');
+          const dropdownMenu = parent.querySelector('.mobile-dropdown-menu');
+          dropdownMenu.classList.toggle('active');
+          this.querySelector('i').classList.toggle('fa-chevron-down');
+          this.querySelector('i').classList.toggle('fa-chevron-up');
+        });
       });
     }
     
-    // Handle dropdown menus on mobile
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    
-    if (window.innerWidth <= 768) {
-      dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          const parent = this.parentElement;
-          const dropdownMenu = parent.querySelector('.dropdown-menu');
-          
-          // Close all other dropdowns
-          document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            if (menu !== dropdownMenu) {
-              menu.style.display = 'none';
-            }
-          });
-          
-          // Toggle this dropdown
-          dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-        });
+    // Close mobile menu with close button
+    const mobileNavClose = document.querySelector('.mobile-nav-close');
+    if (mobileNavClose) {
+      mobileNavClose.addEventListener('click', function() {
+        document.body.classList.remove('mobile-nav-active');
+        document.querySelector('.mobile-nav').classList.remove('active');
+        document.querySelector('.mobile-overlay').classList.remove('active');
       });
     }
   }

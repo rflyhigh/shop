@@ -80,26 +80,9 @@ router.get('/privacy', (req, res) => {
 });
 
 
-router.get('/health', async (req, res) => {
-    try {
-      // Check database connection
-      await mongoose.connection.db.admin().ping();
-      
-      res.status(200).json({
-        status: 'UP',
-        database: 'Connected',
-        timestamp: new Date().toISOString(),
-        uptime: process.uptime(),
-        message: 'All systems operational'
-      });
-    } catch (error) {
-      res.status(500).json({
-        status: 'DOWN',
-        database: 'Disconnected',
-        error: error.message,
-        timestamp: new Date().toISOString()
-      });
-    }
-  });
+router.get('/health', (req, res) => {
+  res.json({ message: 'Ok' });
+});
+
 
 module.exports = router;

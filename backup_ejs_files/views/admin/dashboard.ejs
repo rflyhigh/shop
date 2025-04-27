@@ -1,0 +1,121 @@
+
+<!-- views/admin/dashboard.ejs -->
+<section class="admin-dashboard">
+  <div class="container">
+    <div class="admin-header">
+      <h1>Admin Dashboard</h1>
+    </div>
+    
+    <div class="admin-stats">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-box"></i>
+        </div>
+        <div class="stat-info">
+          <h3>Products</h3>
+          <p class="stat-value"><%= productCount %></p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <div class="stat-info">
+          <h3>Orders</h3>
+          <p class="stat-value"><%= orderCount %></p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-info">
+          <h3>Users</h3>
+          <p class="stat-value"><%= userCount %></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="admin-actions">
+      <a href="/admin/products" class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-box"></i>
+        </div>
+        <div class="action-info">
+          <h3>Manage Products</h3>
+          <p>Add, edit, or remove products</p>
+        </div>
+      </a>
+      
+      <a href="/admin/orders" class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <div class="action-info">
+          <h3>Manage Orders</h3>
+          <p>View and process orders</p>
+        </div>
+      </a>
+    </div>
+    
+    <div class="recent-orders">
+      <h2>Recent Orders</h2>
+      
+      <% if (recentOrders.length === 0) { %>
+        <div class="no-data">
+          <p>No orders yet.</p>
+        </div>
+      <% } else { %>
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% recentOrders.forEach(order => { %>
+                <tr>
+                  <td><%= order._id.toString().substring(0, 8) %>...</td>
+                  <td>
+                    <% if (order.user) { %>
+                      <%= order.user.name %>
+                    <% } else { %>
+                      <%= order.guestEmail %> <span class="text-muted">(Guest)</span>
+                    <% } %>
+                  </td>
+                  <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
+                  <td>$<%= order.totalAmount.toFixed(2) %></td>
+                  <td>
+                    <span class="status-badge <%= order.status %>">
+                      <%= order.status.charAt(0).toUpperCase() + order.status.slice(1) %>
+                    </span>
+                  </td>
+                  <td>
+                    <a href="/admin/orders/<%= order._id %>" class="btn btn-sm btn-outline">
+                      <i class="fas fa-eye"></i> View
+                    </a>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="view-all">
+          <a href="/admin/orders" class="btn btn-outline">View All Orders</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+
+

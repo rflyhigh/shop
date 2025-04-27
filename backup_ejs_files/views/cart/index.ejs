@@ -1,0 +1,168 @@
+
+
+<!-- views/cart/index.ejs -->
+<section class="cart-page">
+  <div class="container">
+    <div class="cart-header">
+      <h1>Your Shopping Cart</h1>
+    </div>
+    
+    <% if (!cart || cart.items.length === 0) { %>
+      <div class="empty-cart">
+        <div class="empty-cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added any items to your cart yet.</p>
+        <a href="/products" class="btn btn-primary">Continue Shopping</a>
+      </div>
+    <% } else { %>
+      <div class="cart-content">
+        <div class="cart-items">
+          <!-- Desktop/Tablet Cart View -->
+          <div class="desktop-cart">
+            <div class="cart-table-container">
+              <table class="cart-table">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% cart.items.forEach(item => { %>
+                    <tr>
+                      <td class="product-cell">
+                        <div class="cart-product-info">
+                          <img src="<%= item.product.imageUrl %>" alt="<%= item.product.name %>">
+                          <div class="cart-product-details">
+                            <h3 class="truncate-2"><%= item.product.name %></h3>
+                            <p class="cart-product-category">
+                              <% if (item.product.category === 'giftcard') { %>
+                                Gift Card
+                              <% } else if (item.product.category === 'account') { %>
+                                Account
+                              <% } else if (item.product.category === 'currency') { %>
+                                Digital Currency
+                              <% } else { %>
+                                Other
+                              <% } %>
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="price-cell">$<%= item.product.price.toFixed(2) %></td>
+                      <td class="quantity-cell">
+                        <form action="/cart/update" method="POST" class="cart-quantity-form">
+                          <input type="hidden" name="itemId" value="<%= item._id %>">
+                          <div class="cart-quantity-buttons">
+                            <button type="button" class="cart-qty-btn minus">-</button>
+                            <input type="number" name="quantity" value="<%= item.quantity %>" min="1" max="<%= item.product.stock %>">
+                            <button type="button" class="cart-qty-btn plus">+</button>
+                          </div>
+                          <button type="submit" class="btn btn-sm btn-outline cart-update-btn">Update</button>
+                        </form>
+                      </td>
+                      <td class="total-cell">$<%= (item.product.price * item.quantity).toFixed(2) %></td>
+                      <td class="cart-actions-cell">
+                        <a href="/cart/remove/<%= item._id %>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to remove this item?')">
+                          <i class="fas fa-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Mobile Cart View -->
+          <div class="mobile-cart">
+            <% cart.items.forEach(item => { %>
+              <div class="mobile-cart-item">
+                <div class="mobile-cart-product">
+                  <img src="<%= item.product.imageUrl %>" alt="<%= item.product.name %>">
+                  <div class="mobile-cart-details">
+                    <h3><%= item.product.name %></h3>
+                    <p class="mobile-cart-category">
+                      <% if (item.product.category === 'giftcard') { %>
+                        Gift Card
+                      <% } else if (item.product.category === 'account') { %>
+                        Account
+                      <% } else if (item.product.category === 'currency') { %>
+                        Digital Currency
+                      <% } else { %>
+                        Other
+                      <% } %>
+                    </p>
+                    <p class="mobile-cart-price">$<%= item.product.price.toFixed(2) %> each</p>
+                  </div>
+                </div>
+                
+                <div class="mobile-cart-actions">
+                  <form action="/cart/update" method="POST" class="mobile-cart-quantity">
+                    <input type="hidden" name="itemId" value="<%= item._id %>">
+                    <span>Qty:</span>
+                    <div class="cart-quantity-buttons">
+                      <button type="button" class="cart-qty-btn minus">-</button>
+                      <input type="number" name="quantity" value="<%= item.quantity %>" min="1" max="<%= item.product.stock %>">
+                      <button type="button" class="cart-qty-btn plus">+</button>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-outline cart-update-btn">Update</button>
+                  </form>
+                  
+                  <div class="mobile-cart-total">
+                    Total: $<%= (item.product.price * item.quantity).toFixed(2) %>
+                  </div>
+                </div>
+                
+                <div class="mobile-cart-remove">
+                  <a href="/cart/remove/<%= item._id %>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to remove this item?')">
+                    <i class="fas fa-trash"></i> Remove
+                  </a>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+        
+        <div class="cart-summary">
+          <h2>Order Summary</h2>
+          <div class="cart-summary-item">
+            <span>Subtotal:</span>
+            <span>$<%= total.toFixed(2) %></span>
+          </div>
+          <div class="cart-summary-item">
+            <span>Shipping:</span>
+            <span>Free</span>
+          </div>
+          <div class="cart-summary-item total">
+            <span>Total:</span>
+            <span>$<%= total.toFixed(2) %></span>
+          </div>
+          <a href="/payment/checkout" class="btn btn-primary btn-block">
+            <i class="fas fa-credit-card"></i> Proceed to Checkout
+          </a>
+          <a href="/cart/clear" class="btn btn-outline btn-block" onclick="return confirm('Are you sure you want to clear your cart?')">
+            <i class="fas fa-trash"></i> Clear Cart
+          </a>
+          <div class="cart-payment-methods">
+            <p>We accept:</p>
+            <div class="cart-payment-icons">
+              <i class="fab fa-bitcoin"></i>
+              <i class="fab fa-ethereum"></i>
+              <i class="fab fa-cc-visa"></i>
+              <i class="fab fa-cc-mastercard"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+
+

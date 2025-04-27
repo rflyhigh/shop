@@ -1,0 +1,158 @@
+<!-- views/partials/header.ejs -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <a href="/">
+          <h1>Keykardz<span>.shop</span></h1>
+        </a>
+      </div>
+      
+      <div class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/products">Products</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">Categories <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-menu">
+              <a href="/products?category=giftcard">Gift Cards</a>
+              <a href="/products?category=account">Accounts</a>
+              <a href="/products?category=currency">Digital Currency</a>
+              <a href="/products?category=other">Other</a>
+            </div>
+          </li>
+          <% if (locals.user && user.isAdmin) { %>
+            <li><a href="/admin">Admin Panel</a></li>
+          <% } %>
+        </ul>
+      </nav>
+      
+      <div class="header-actions">
+        <div class="search-box">
+          <form action="/products" method="GET">
+            <input type="text" name="search" placeholder="Search products...">
+            <button type="submit"><i class="fas fa-search"></i></button>
+          </form>
+        </div>
+        
+        <div class="user-actions">
+          <a href="/cart" class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <% if (locals.cartCount && cartCount > 0) { %>
+              <span class="cart-count"><%= cartCount %></span>
+            <% } %>
+          </a>
+          
+          <% if (locals.user) { %>
+            <div class="dropdown">
+              <a href="#" class="dropdown-toggle">
+                <i class="fas fa-user"></i> <%= user.name %>
+              </a>
+              <div class="dropdown-menu">
+                <a href="/profile">Profile</a>
+                <a href="/orders">Orders</a>
+                <a href="/auth/logout">Logout</a>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="auth-buttons">
+              <a href="/auth/login" class="btn btn-outline">Login</a>
+              <a href="/auth/register" class="btn btn-primary">Register</a>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav">
+<div class="mobile-nav-header">
+  <div class="logo">
+    <a href="/">
+      <h1>Keykardz<span>.shop</span></h1>
+    </a>
+  </div>
+  <div class="mobile-nav-close">
+    <i class="fas fa-times"></i>
+  </div>
+</div>
+
+<div class="mobile-nav-content">
+  <div class="mobile-search">
+    <div class="search-box">
+      <form action="/products" method="GET">
+        <input type="text" name="search" placeholder="Search products...">
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </div>
+  
+  <ul class="mobile-nav-menu">
+    <li class="mobile-nav-item">
+      <a href="/" class="mobile-nav-link">Home</a>
+    </li>
+    <li class="mobile-nav-item">
+      <a href="/products" class="mobile-nav-link">Products</a>
+    </li>
+    <li class="mobile-nav-item">
+      <div class="mobile-nav-link">
+        <span>Categories</span>
+        <div class="mobile-dropdown-toggle">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </div>
+      <ul class="mobile-dropdown-menu">
+        <li class="mobile-dropdown-item">
+          <a href="/products?category=giftcard" class="mobile-dropdown-link">Gift Cards</a>
+        </li>
+        <li class="mobile-dropdown-item">
+          <a href="/products?category=account" class="mobile-dropdown-link">Accounts</a>
+        </li>
+        <li class="mobile-dropdown-item">
+          <a href="/products?category=currency" class="mobile-dropdown-link">Digital Currency</a>
+        </li>
+        <li class="mobile-dropdown-item">
+          <a href="/products?category=other" class="mobile-dropdown-link">Other</a>
+        </li>
+      </ul>
+    </li>
+    <% if (locals.user && user.isAdmin) { %>
+      <li class="mobile-nav-item">
+        <a href="/admin" class="mobile-nav-link">Admin Panel</a>
+      </li>
+    <% } %>
+  </ul>
+  
+  <div class="mobile-nav-actions">
+    <a href="/cart" class="btn btn-outline btn-block">
+      <i class="fas fa-shopping-cart"></i> Cart
+      <% if (locals.cartCount && cartCount > 0) { %>
+        (<%= cartCount %>)
+      <% } %>
+    </a>
+    
+    <% if (locals.user) { %>
+      <a href="/profile" class="btn btn-outline btn-block">
+        <i class="fas fa-user"></i> Profile
+      </a>
+      <a href="/orders" class="btn btn-outline btn-block">
+        <i class="fas fa-shopping-bag"></i> Orders
+      </a>
+      <a href="/auth/logout" class="btn btn-danger btn-block">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    <% } else { %>
+      <a href="/auth/login" class="btn btn-outline btn-block">Login</a>
+      <a href="/auth/register" class="btn btn-primary btn-block">Register</a>
+    <% } %>
+  </div>
+</div>
+</div>
+
+<div class="mobile-overlay"></div>
