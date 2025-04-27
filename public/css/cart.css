@@ -320,3 +320,75 @@
   }
 }
 
+/* Cart Summary Fixes */
+.cart-summary {
+  background-color: #f9f9f9;
+  padding: 25px;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-color);
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  z-index: 10;
+}
+
+@media (max-width: 991px) {
+  .cart-summary {
+    position: static; /* Remove sticky positioning on mobile */
+    margin-bottom: 20px;
+  }
+  
+  .cart-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cart-summary {
+    order: -1; /* Move summary to top on mobile */
+  }
+}
+
+/* Mobile Cart Improvements */
+@media (max-width: 767px) {
+  .mobile-cart-item {
+    padding: 20px;
+  }
+  
+  .mobile-cart-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .mobile-cart-quantity {
+    width: 100%;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .mobile-cart-quantity span {
+    margin-right: 10px;
+    min-width: 40px;
+  }
+  
+  .cart-quantity-buttons {
+    flex: 1;
+    max-width: 120px;
+  }
+  
+  .mobile-cart-total {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  .mobile-cart-remove {
+    width: 100%;
+  }
+  
+  .cart-update-btn {
+    margin-left: 10px;
+  }
+}
